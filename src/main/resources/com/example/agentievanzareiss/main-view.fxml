@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agentievanzareiss.controller.MainController">
+   <children>
+      <TableView layoutX="36.0" layoutY="25.0" prefHeight="200.0" prefWidth="307.0">
+        <columns>
+          <TableColumn prefWidth="125.33332824707031" text="Denumire" />
+          <TableColumn prefWidth="82.0" text="Pret" />
+            <TableColumn prefWidth="98.66667683919269" text="Stoc" />
+        </columns>
+      </TableView>
+      <Label layoutX="43.0" layoutY="255.0" text="Cantitate" />
+      <TextField layoutX="114.0" layoutY="251.0" prefHeight="25.0" prefWidth="59.0" />
+      <Button layoutX="198.0" layoutY="251.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Adauga la comanda" />
+      <Button layoutX="40.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="307.0" text="Plaseaza comanda" />
+      <Label layoutX="373.0" layoutY="38.0" text="Denumire" />
+      <TextField layoutX="437.0" layoutY="34.0" />
+      <Button layoutX="374.0" layoutY="80.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Filtreaza" />
+      <Button layoutX="414.0" layoutY="362.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Log out" />
+      <Label layoutX="373.0" layoutY="255.0" text="Detalii livrare" />
+      <TextField layoutX="455.0" layoutY="251.0" prefHeight="83.0" prefWidth="135.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agentievanzareiss.controller.LoginController">
+   <children>
+      <Label layoutX="80.0" layoutY="58.0" prefHeight="26.0" prefWidth="89.0" text="Username">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="80.0" layoutY="107.0" prefHeight="33.0" prefWidth="89.0" text="Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="62.0" layoutY="151.0" />
+      <TextField fx:id="textFieldUsername" layoutX="225.0" layoutY="58.0" />
+      <TextField fx:id="textFieldPassword" layoutX="225.0" layoutY="111.0" />
+      <Button layoutX="225.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleLogIn" prefHeight="25.0" prefWidth="149.0" text="Log In" />
+   </children>
+</AnchorPane>
