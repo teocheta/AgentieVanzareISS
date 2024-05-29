@@ -3,10 +3,10 @@ package com.example.agentievanzareiss;
 import com.example.agentievanzareiss.controller.AdminController;
 import com.example.agentievanzareiss.controller.LoginController;
 import com.example.agentievanzareiss.model.Produs;
+import com.example.agentievanzareiss.model.Utilizator;
 import com.example.agentievanzareiss.model.validators.Validator;
 import com.example.agentievanzareiss.model.validators.ValidatorProdus;
-import com.example.agentievanzareiss.repository.ProdusDBRepository;
-import com.example.agentievanzareiss.repository.ProdusRepository;
+import com.example.agentievanzareiss.repository.*;
 import com.example.agentievanzareiss.service.Service;
 import com.example.agentievanzareiss.service.ServiceAgentie;
 import com.example.agentievanzareiss.utils.MessageAlert;
@@ -24,6 +24,14 @@ public class StartApplication extends Application {
     Validator<Produs> produsValidator;
     ProdusRepository produsRepository;
 
+    Validator<Utilizator> utilizatorValidator;
+
+    UtilizatorRepository utilizatorRepository;
+
+    ComandaRepository comandaRepository;
+
+    ProdusComandaRepository produsComandaRepository;
+
     Service service;
 
     public static void main(String[] args){
@@ -39,8 +47,16 @@ public class StartApplication extends Application {
             MessageAlert.showErrorMessage(null,"Cannot find bd.config " + e);
         }
         produsValidator = new ValidatorProdus();
+
         produsRepository = new ProdusDBRepository(props);
-        service = new ServiceAgentie(produsValidator, produsRepository);
+
+        utilizatorRepository = new UtilizatorDBRepository(props);
+
+        comandaRepository = new ComandaDBRepository(props);
+
+        produsComandaRepository = new ProdusComandaDBRepository(props);
+
+        service = new ServiceAgentie(produsValidator, produsRepository,utilizatorRepository, comandaRepository, produsComandaRepository);
         initView(primaryStage);
         primaryStage.setWidth(800);
         primaryStage.show();
@@ -49,11 +65,11 @@ public class StartApplication extends Application {
 
     private void initView(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("admin-view.fxml"));
+        loader.setLocation(getClass().getResource("login-view.fxml"));
         AnchorPane loginLayout = loader.load();
         primaryStage.setScene(new Scene(loginLayout));
 
-        AdminController adminController = loader.getController();
-        adminController.setService(service);
+        LoginController loginController = loader.getController();
+        loginController.setService(service);
     }
 }

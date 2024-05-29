@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface Repository<Tid, T extends Identifiable<Tid>> {
 
-    void add(T elem);
+    int add(T elem);
     void delete(T elem);
     void update(T elem);
     T findById(Tid id);

@@ -1,8 +1,13 @@
 package com.example.agentievanzareiss.service;
 
+import com.example.agentievanzareiss.model.Comanda;
 import com.example.agentievanzareiss.model.Produs;
+import com.example.agentievanzareiss.model.ProdusComanda;
+import com.example.agentievanzareiss.model.Utilizator;
 import com.example.agentievanzareiss.utils.events.ChangeEvent;
 import com.example.agentievanzareiss.utils.observer.Observable;
+
+import java.util.List;
 
 public interface Service extends Observable<ChangeEvent> {
 
@@ -14,6 +19,13 @@ public interface Service extends Observable<ChangeEvent> {
 
     Iterable<Produs> findAllProduse();
 
-    void login(String username, String password);
+    boolean exista(Utilizator crtUser);
 
+    Utilizator getUserByUsername(String username);
+
+    int adaugaComanda(Comanda comanda);
+
+    void adaugaProdusComanda(int idComanda, List<ProdusComanda> produse);
+
+    Produs filtreazaProduse(String filtru);
 }

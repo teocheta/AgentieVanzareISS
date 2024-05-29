@@ -1,9 +1,12 @@
 package com.example.agentievanzareiss.service;
 
+import com.example.agentievanzareiss.model.Comanda;
 import com.example.agentievanzareiss.model.Produs;
+import com.example.agentievanzareiss.model.ProdusComanda;
+import com.example.agentievanzareiss.model.Utilizator;
 import com.example.agentievanzareiss.model.validators.ValidationException;
 import com.example.agentievanzareiss.model.validators.Validator;
-import com.example.agentievanzareiss.repository.ProdusRepository;
+import com.example.agentievanzareiss.repository.*;
 import com.example.agentievanzareiss.utils.events.ChangeEvent;
 import com.example.agentievanzareiss.utils.events.ChangeEventType;
 import com.example.agentievanzareiss.utils.observer.Observer;
@@ -17,13 +20,22 @@ public class ServiceAgentie implements Service {
 
     private ProdusRepository produsRepository;
 
+    private UtilizatorRepository utilizatorRepository;
+
+    private ComandaRepository comandaRepository;
+
+    private ProdusComandaRepository produsComandaRepository;
+
     private List<Observer<ChangeEvent>> observers = new ArrayList<>();
 
-    public ServiceAgentie(Validator<Produs> produsValidator, ProdusRepository produsRepository){
+    public ServiceAgentie(Validator<Produs> produsValidator, ProdusRepository produsRepository, UtilizatorRepository utilizatorRepository, ComandaRepository comandaRepository, ProdusComandaRepository produsComandaRepository){
         this.produsValidator = produsValidator;
         this.produsRepository = produsRepository;
-
+        this.utilizatorRepository = utilizatorRepository;
+        this.comandaRepository = comandaRepository;
+        this.produsComandaRepository = produsComandaRepository;
     }
+
     public boolean exista(Produs produs){
         return produsRepository.findByDenumire(produs.getDenumire()) != null;
     }
@@ -87,9 +99,44 @@ public class ServiceAgentie implements Service {
         return produsRepository.findAll();
     }
 
-    @Override
-    public void login(String username, String password) {
 
+    @Override
+    public boolean exista(Utilizator crtUser) {
+        return utilizatorRepository.findByUsername(crtUser.getUsername()) != null;
+    }
+
+    @Override
+    public Utilizator getUserByUsername(String username) {
+        return utilizatorRepository.findByUsername(username);
+    }
+
+    @Override
+    public int adaugaComanda(Comanda comanda) {
+        Utilizator utilizatorFaraId = comanda.getAgent();
+        Utilizator utilizatorCuId = utilizatorRepository.findByUsername(utilizatorFaraId.getUsername());
+        comanda.setAgent(utilizatorCuId);
+        return comandaRepository.add(comanda);
+
+    }
+
+    @Override
+    public void adaugaProdusComanda(int idComanda, List<ProdusComanda> produse) {
+        for(ProdusComanda produsComanda:produse){
+            Comanda comanda = comandaRepository.findById(idComanda);
+            produsComanda.setComanda(comanda);
+            produsComandaRepository.add(produsComanda);
+            Produs produs = produsComanda.getProdus();
+            int stoc_curent = produs.getStoc();
+            produs.setStoc(stoc_curent-produsComanda.getCantitate());
+            produsRepository.update(produsComanda.getProdus());
+            notifyObservers(new ChangeEvent(ChangeEventType.UPDATE, produsComanda.getProdus()));
+        }
+
+    }
+
+    @Override
+    public Produs filtreazaProduse(String filtru) {
+        return produsRepository.findByDenumire(filtru);
     }
 
     @Override

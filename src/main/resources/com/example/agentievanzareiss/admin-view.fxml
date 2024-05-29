@@ -13,7 +13,7 @@
     </TableView>
    <Button layoutX="38.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleStergeProdus" prefHeight="25.0" prefWidth="132.0" text="Sterge Produs" />
    <Button layoutX="214.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleUpdateProdus" prefHeight="25.0" prefWidth="120.0" text="Update Produs" />
-   <Button layoutX="122.0" layoutY="328.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="132.0" text="Log out" />
+   <Button layoutX="122.0" layoutY="328.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="25.0" prefWidth="132.0" text="Log out" />
    <TextField fx:id="textFieldDenumire" layoutX="437.0" layoutY="39.0" />
    <TextField fx:id="textFieldPret" layoutX="437.0" layoutY="86.0" />
    <TextField fx:id="textFieldStoc" layoutX="437.0" layoutY="132.0" />

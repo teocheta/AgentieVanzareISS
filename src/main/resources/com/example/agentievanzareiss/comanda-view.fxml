@@ -5,14 +5,14 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agentievanzareiss.controller.ComandaController">
    <children>
-      <TableView layoutX="38.0" layoutY="26.0" prefHeight="268.0" prefWidth="301.0">
+      <TableView fx:id="tableViewProduse" layoutX="38.0" layoutY="26.0" prefHeight="268.0" prefWidth="337.0">
         <columns>
-          <TableColumn prefWidth="120.66665267944336" text="Denumire" />
-          <TableColumn prefWidth="101.33335876464844" text="Cantitate" />
-            <TableColumn prefWidth="79.66665649414062" text="Pret" />
+          <TableColumn fx:id="tableColumnDenumire" prefWidth="120.66665267944336" text="Denumire" />
+          <TableColumn fx:id="tableColumnCantitate" prefWidth="118.0" text="Cantitate" />
+            <TableColumn fx:id="tableColumnPret" prefWidth="97.33334350585938" text="Pret" />
         </columns>
       </TableView>
       <Label layoutX="181.0" layoutY="259.0" prefHeight="17.0" prefWidth="94.0" />
-      <Button layoutX="38.0" layoutY="321.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="301.0" text="Confirma comanda" />
+      <Button layoutX="38.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleConfirmaComanda" prefHeight="25.0" prefWidth="337.0" text="Confirma comanda" />
    </children>
 </AnchorPane>

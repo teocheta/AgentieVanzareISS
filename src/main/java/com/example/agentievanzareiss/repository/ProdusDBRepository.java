@@ -3,10 +3,7 @@ package com.example.agentievanzareiss.repository;
 import com.example.agentievanzareiss.model.Produs;
 import com.example.agentievanzareiss.utils.JdbcUtils;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class ProdusDBRepository implements ProdusRepository {
@@ -19,19 +16,29 @@ public class ProdusDBRepository implements ProdusRepository {
     }
 
     @Override
-    public void add(Produs elem) {
+    public int add(Produs elem) {
         Connection con = dbUtils.getConnection();
         try(PreparedStatement preparedStatement = con.prepareStatement("insert into produse(denumire, pret, stoc)  values (?,?,?)")){
             preparedStatement.setString(1, elem.getDenumire());
             preparedStatement.setFloat(2, elem.getPret());
             preparedStatement.setInt(3, elem.getStoc());
-            preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
+            if (result > 0) {
+                try (Statement stmt = con.createStatement();
+                     ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()")) {
+                    if (rs.next()) {
+                        int id = rs.getInt(1);
+                        elem.setID(id);
+                        return id;
+                    }
+                }
+            }
 
         }
         catch (SQLException ex){
             System.err.println("Error DB" + ex);
         }
-
+        return 0;
     }
 
     @Override
@@ -132,6 +139,7 @@ public class ProdusDBRepository implements ProdusRepository {
                     int stoc = resultSet.getInt("stoc");
                     produs = new Produs(denumireP, pret, stoc);
                     produs.setID(id);
+
                 }
             }
 

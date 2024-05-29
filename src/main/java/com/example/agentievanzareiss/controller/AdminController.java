@@ -1,11 +1,11 @@
 package com.example.agentievanzareiss.controller;
 import com.example.agentievanzareiss.model.Produs;
+import com.example.agentievanzareiss.model.Utilizator;
 import com.example.agentievanzareiss.service.Service;
 import com.example.agentievanzareiss.service.ServiceException;
 import com.example.agentievanzareiss.utils.MessageAlert;
 import com.example.agentievanzareiss.utils.events.ChangeEvent;
 import com.example.agentievanzareiss.utils.observer.Observer;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Objects;
@@ -122,7 +123,8 @@ public class AdminController implements Observer<ChangeEvent> {
         else {
             try{
                 service.updateProdus(selected.getDenumire(), pret, stoc);
-            }catch(ServiceException exception){
+            }
+            catch(ServiceException exception){
                 MessageAlert.showErrorMessage(null, exception.getMessage());
             }
         }
@@ -134,5 +136,12 @@ public class AdminController implements Observer<ChangeEvent> {
         initModel();
         tableView.setItems(model);
     }
+
+    public void handleLogOut(ActionEvent event){
+        Stage currentStage = (Stage) tableView.getScene().getWindow();
+        currentStage.close();
+
+    }
+
 
 }
